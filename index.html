@@ -231,7 +231,7 @@
 
         <div class="title-container">
             <h1>AWIS' GARDEN</h1>
-            <div class="subtitle">FLOWERS TYCOON</div>
+            <div class="subtitle">FLOWER TYCOON jijiji</div>
         </div>
         <div id="save-slots-container"></div>
     </div>
@@ -639,8 +639,10 @@ class Engine {
                 else if(ent.type === 'PLOT') {
                     if(this.player.tool === ENUMS.TOOLS.HOE && !ent.tilled) {
                         ent.tilled = true;
-                        // Removido ent.water = 0; para conservar la tierra mojada si se usó la regadera antes de arar
                         for(let i=0; i<8; i++) this.particles.push(new Particle(ent.x + 16, ent.y + 16, 'DIRT'));
+                        if(this.player.seeds > 0) {
+                            const keys = Object.keys(DB.PLANTS); ent.plant = new Plant(DB.PLANTS[keys[Math.floor(Math.random()*keys.length)]]); this.player.seeds--;
+                        }
                     }
                     else if(this.player.tool === ENUMS.TOOLS.HOE && ent.tilled && !ent.plant && this.player.seeds > 0) {
                         const keys = Object.keys(DB.PLANTS); ent.plant = new Plant(DB.PLANTS[keys[Math.floor(Math.random()*keys.length)]]); this.player.seeds--;
